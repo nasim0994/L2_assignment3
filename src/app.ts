@@ -3,6 +3,9 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import config from './config';
+import router from './routes';
+import globalErrorHandler from './errors/globalErrorhandler';
+import { notFound } from './errors/notFound';
 const app: Application = express();
 
 // Middleware
@@ -14,24 +17,12 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // use Routes
-
-// all undefined routes
-app.all('*', (req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    message: 'Api not found!',
-  });
-});
+app.use('/api', router);
 
 // global error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  if (err) {
-    res.status(400).json({
-      success: false,
-      message: err.message || 'Something went wrong',
-      error: { error: err, stack: err.stack },
-    });
-  }
-});
+app.use(globalErrorHandler);
+
+//Not Found
+app.use(notFound);
 
 export default app;
