@@ -4,6 +4,7 @@ import { IBlog } from './blogInterface';
 import {
   createBlogService,
   deleteBlogService,
+  getAllBlogsService,
   updateBlogService,
 } from './blogService';
 import { ObjectId } from 'mongoose';
@@ -16,7 +17,7 @@ export const createBlogController: RequestHandler = catchAsync(
 
     const { blog, author } = await createBlogService(data, userID);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
       message: 'Blog created successfully',
@@ -36,7 +37,7 @@ export const updateBlogController: RequestHandler = catchAsync(
 
     const { blog, author } = await updateBlogService(data, userID, blogID);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
       message: 'Blog update successfully',
@@ -55,10 +56,23 @@ export const deleteBlogController: RequestHandler = catchAsync(
 
     await deleteBlogService(userID, blogID);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
       message: 'Blog delete successfully',
+    });
+  },
+);
+
+export const getAllBlogsController: RequestHandler = catchAsync(
+  async (req, res) => {
+    const result = await getAllBlogsService(req.query);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Blogs fetched successfully',
+      data: result,
     });
   },
 );

@@ -4,6 +4,7 @@ import { Blog } from './blogModel';
 import { User } from '../user/userModel';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
+import QueryBuilder from '../../builders/QueryBuilder';
 
 export const createBlogService = async (data: IBlog, userID: ObjectId) => {
   const user = await User.findById(userID).select('-password');
@@ -71,5 +72,20 @@ export const deleteBlogService = async (userID: ObjectId, blogID: string) => {
       'Failed to delete blog',
     );
 
+  return result;
+};
+
+export const getAllBlogsService = async (query: Record<string, unknown>) => {
+  const blogQuery = new QueryBuilder(
+    Blog.find().populate('author', '-password'),
+    query,
+  )
+    .search(['title', 'content'])
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await blogQuery.modelQuery;
   return result;
 };
