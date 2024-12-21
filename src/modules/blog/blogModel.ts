@@ -26,4 +26,4 @@ const blogSchema = new Schema<IBlog>(
   },
 );
 
-export const BlogModel = model<IBlog>('Blog', blogSchema);
+export const Blog = model<IBlog>('Blog', blogSchema);

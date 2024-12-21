@@ -4,13 +4,10 @@ import AppError from '../errors/AppError';
 import httpStatus from 'http-status';
 import { User } from '../modules/user/userModel';
 import config from '../config';
+import { catchAsync } from '../utils/catchAsync';
 
-export const verifyAdmin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
-  try {
+export const verifyAdmin = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers?.authorization?.split(' ')[1];
     if (!token)
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not logged in');
@@ -39,10 +36,5 @@ export const verifyAdmin = async (
       );
 
     next();
-  } catch (error: any) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  },
+);
