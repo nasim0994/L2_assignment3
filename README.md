@@ -256,7 +256,7 @@ GET /api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&author=60b8f42f
 ---
 
 
----------------------
+
 
 ## Admin Actions
 
