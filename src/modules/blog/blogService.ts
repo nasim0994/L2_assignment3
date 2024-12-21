@@ -9,6 +9,10 @@ import QueryBuilder from '../../builders/QueryBuilder';
 export const createBlogService = async (data: IBlog, userID: ObjectId) => {
   const user = await User.findById(userID).select('-password');
 
+  // blog create only user
+  if (user?.role !== 'user')
+    throw new AppError(httpStatus.FORBIDDEN, 'Only user can create blog');
+
   const newData = {
     ...data,
     author: user?._id,
