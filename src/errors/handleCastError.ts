@@ -15,7 +15,7 @@ const handleCastError = (
 
   return {
     statusCode,
-    message: 'Invalid Email',
+    message: 'Invalid input data!',
     errorSources,
   };
 };

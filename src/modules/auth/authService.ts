@@ -8,7 +8,12 @@ import bcrypt from 'bcrypt';
 import { IUser } from '../user/userInterface';
 
 export const createUserService = async (data: IUser) => {
-  const result = await User.create(data);
+  const { name, email, password } = data;
+  const result = await User.create({
+    name,
+    email,
+    password,
+  });
   return result;
 };
 
