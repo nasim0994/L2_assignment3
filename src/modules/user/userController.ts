@@ -1,16 +1,14 @@
 import { RequestHandler } from 'express';
-import { createUserService } from './userService';
-import { IUser } from './userInterface';
 import { catchAsync } from '../../utils/catchAsync';
+import { getAllUserService } from './userService';
 
-export const createUserController: RequestHandler = catchAsync(
+export const getAllUserController: RequestHandler = catchAsync(
   async (req, res) => {
-    const data: IUser = req.body;
-    const result = await createUserService(data);
+    const result = await getAllUserService();
 
     res.status(200).json({
       success: true,
-      message: 'user created successfully',
+      message: 'all user get successfully',
       data: result,
     });
   },

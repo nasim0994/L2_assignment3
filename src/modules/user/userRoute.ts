@@ -1,9 +1,8 @@
 import express from 'express';
-import verifyValidate from '../../middlewares/verifyValidate';
-import { userValidation } from './userValidation';
-import { createUserController } from './userController';
+import { getAllUserController } from './userController';
+import { verifyAdmin } from '../../middlewares/verifyAdmin';
 const Router = express.Router();
 
-Router.post('/register', verifyValidate(userValidation), createUserController);
+Router.get('/all', verifyAdmin, getAllUserController);
 
 export const userRoute = Router;

@@ -5,6 +5,12 @@ import { User } from '../user/userModel';
 import { ILoginUser } from './authInterface';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
+import { IUser } from '../user/userInterface';
+
+export const createUserService = async (data: IUser) => {
+  const result = await User.create(data);
+  return result;
+};
 
 export const loginUserService = async (payload: ILoginUser) => {
   // checking if the user is exist
@@ -37,12 +43,17 @@ export const loginUserService = async (payload: ILoginUser) => {
 
   const accessToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string,
+    config.JWT_ACCESS_SECRET as string,
+    config.JWT_ACCESS_EXPIRES_IN as string,
   );
 
   return {
     accessToken,
-    user,
+    user: {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      isBlocked: user.isBlocked,
+    },
   };
 };

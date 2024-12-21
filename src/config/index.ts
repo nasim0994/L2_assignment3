@@ -7,6 +7,6 @@ export default {
   PORT: process.env.PORT || 5000,
   DB_URL: process.env.DB_URL,
   NODE_ENV: process.env.NODE_ENV || 'development',
-  jwt_access_secret: process.env.JWT_ACCESS_SECRET,
-  jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN,
+  JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+  JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN,
 };
