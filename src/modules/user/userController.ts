@@ -10,7 +10,7 @@ export const createUserController: RequestHandler = catchAsync(
 
     res.status(200).json({
       success: true,
-      message: 'car created successfully',
+      message: 'user created successfully',
       data: result,
     });
   },

@@ -1,7 +1,7 @@
 import { IUser } from './userInterface';
-import { UserModel } from './userModel';
+import { User } from './userModel';
 
 export const createUserService = async (data: IUser) => {
-  const result = await UserModel.create(data);
+  const result = await User.create(data);
   return result;
 };
